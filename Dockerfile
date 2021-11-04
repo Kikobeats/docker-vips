@@ -116,7 +116,7 @@ RUN apt-get -y update && \
     # Building ImageMagick
     git clone https://github.com/ImageMagick/ImageMagick.git && \
     cd ImageMagick && git checkout ${IM_VERSION} && \
-    ./configure --without-magick-plus-plus --disable-docs --disable-static --with-libtiff && \
+    ./configure --without-magick-plus-plus --disable-docs --disable-static --with-tiff && \
     make && make install && \
     ldconfig /usr/local/lib && \
     rm -rf /var/lib/apt/lists/* && \
