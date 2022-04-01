@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 9 * * MON'
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   push_to_registry:
@@ -22,7 +22,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: kikobeats/docker-browserless-vips:latest
-
-
-          
+          tags: kikobeats/docker-vips:latest
