@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          tags: docker-vips:latest
+          push: false
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: docker-vips:latest
+          run: git clone https://github.com/microlinkhq/splashy && cd splashy && npm i && npm run test

@@ -1,5 +1,3 @@
-name: Publish Docker image
-
 on:
   schedule:
     - cron: '0 9 * * MON'
@@ -7,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  push_to_registry:
+  publish:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
