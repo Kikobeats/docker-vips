@@ -1,0 +1,70 @@
+name: test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Docker
+        uses: ./.github/actions/setup-docker
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          tags: docker-vips:latest
+          push: false
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+      - name: Cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Docker
+        uses: ./.github/actions/setup-docker
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          tags: docker-vips:latest
+          push: false
+          load: true
+          cache-from: type=local,src=/tmp/.buildx-cache
+      - name: Test
+        uses: addnab/docker-run-action@v3
+        with:
+          image: docker-vips:latest
+          run: git clone https://github.com/microlinkhq/splashy && cd splashy && npm i && npm run test
+
+  publish:
+    if: ${{ github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Docker
+        uses: ./.github/actions/setup-docker
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: kikobeats/docker-vips:latest
