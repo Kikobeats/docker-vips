@@ -42,6 +42,14 @@ jobs:
           tags: docker-vips:latest
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
+      - name: Pretest
+        uses: addnab/docker-run-action@v3
+        with:
+          image: docker-vips:latest
+          run: |
+            convert --version
+            convert -list format
+            convert -list configure
       - name: Test
         uses: addnab/docker-run-action@v3
         with:
