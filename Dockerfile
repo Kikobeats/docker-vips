@@ -7,7 +7,7 @@ ARG IM_VERSION=7.1.0-47
 ARG LIB_HEIF_VERSION=1.13.0
 ARG LIB_AOM_VERSION=3.4.0
 ARG LIB_WEBP_VERSION=1.2.4
-ARG LIB_VIPS_VERSION=8.12.2
+ARG LIB_VIPS_VERSION=8.13.0
 
 # install dependencies
 RUN apt-get -y update && \
@@ -23,7 +23,7 @@ RUN apt-get -y update && \
   fonts-dejavu ghostscript libfontconfig1-dev libfreetype6-dev libgomp1 liblcms2-dev libpng-dev libpng16-16 libtiff-dev libxml2-dev libxml2-utils \
   # libvips
   # https://github.com/libvips/libvips/wiki/Build-for-Ubuntu
-  automake gobject-introspection gtk-doc-tools libexpat1-dev libfftw3-dev libglib2.0-dev libgif-dev libgsf-1-dev libmagickwand-dev libmatio-dev libopenexr-dev libopenslide-dev liborc-0.4-dev swig \
+  automake libgirepository1.0-dev gtk-doc-tools libexpat1-dev libfftw3-dev libglib2.0-dev libgif-dev libgsf-1-dev libmagickwand-dev libmatio-dev libopenexr-dev libopenslide-dev liborc-0.4-dev swig \
   libexif-dev libtiff5-dev libcfitsio-dev libpoppler-glib-dev librsvg2-dev libpango1.0-dev libffi-dev libopenjp2-7-dev libimagequant-dev
 
 # building libwebp
