@@ -40,7 +40,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           tags: docker-vips:latest
-          push: false
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
       - name: Test
@@ -67,5 +66,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          load: true
           tags: kikobeats/docker-vips:latest
