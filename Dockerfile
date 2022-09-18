@@ -1,6 +1,8 @@
 FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV CC=clang
+ENV CXX=clang++
 
 ARG LANG="C.UTF-8"
 ARG IM_VERSION=7.1.0-47
@@ -12,7 +14,7 @@ ARG LIB_VIPS_VERSION=8.13.1
 # install dependencies
 RUN apt-get -y update && \
   apt-get -y upgrade && \
-  apt-get install -y git curl \
+  apt-get install -y git curl clang \
   # libaom
   yasm cmake \
   # libheif
