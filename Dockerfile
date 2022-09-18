@@ -1,15 +1,16 @@
 FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV CC=clang
-ENV CXX=clang++
 
-ARG LANG="C.UTF-8"
+ARG CC=clang
+ARG CXX=clang++
 ARG IM_VERSION=7.1.0-47
 ARG LIB_HEIF_VERSION=1.13.0
 ARG LIB_AOM_VERSION=3.4.0
 ARG LIB_WEBP_VERSION=1.2.4
 ARG LIB_VIPS_VERSION=8.13.1
+
+ENV LANG="C.UTF-8"
 
 # install dependencies
 RUN apt-get -y update && \
