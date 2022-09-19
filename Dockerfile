@@ -2,17 +2,20 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG LANG="C.UTF-8"
 ARG IM_VERSION=7.1.0-47
 ARG LIB_HEIF_VERSION=1.13.0
 ARG LIB_AOM_VERSION=3.4.0
 ARG LIB_WEBP_VERSION=1.2.4
 ARG LIB_VIPS_VERSION=8.13.1
 
+ENV LANG="C.UTF-8"
+ENV CC=clang
+ENV CXX=clang++
+
 # install dependencies
 RUN apt-get -y update && \
   apt-get -y upgrade && \
-  apt-get install -y git curl \
+  apt-get install -y git curl clang \
   # libaom
   yasm cmake \
   # libheif
@@ -44,7 +47,7 @@ RUN echo "build libheif" && curl -fsL https://github.com/strukturag/libheif/rele
 
 # building imagemagick
 RUN echo "build imagemagick" && git clone -b "$IM_VERSION" --single-branch --depth 1 https://github.com/ImageMagick/ImageMagick.git && cd ImageMagick && \
-  ./configure --without-magick-plus-plus --disable-static --disable-docs --disable-dependency-tracking --with-modules && make -j$(nproc) && make install && ldconfig && cd .. && \
+  ./configure --enable-static --disable-docs --disable-dependency-tracking --with-modules && make -j$(nproc) && make install && ldconfig && cd .. && \
   rm -rf ImageMagick
 
 # building libvips
