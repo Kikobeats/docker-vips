@@ -62,5 +62,5 @@ RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && 
   npm install -g npm@latest
 
 # cleanup
-RUN apt-get -qq clean && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
+RUN apt-get remove --autoremove --purge -y curl gtk-doc-tools libfontconfig1-dev libfreetype6-dev libgif-dev libgirepository1.0-dev libsdl1.2-dev libtiff5-dev libtool libxml2-utils swig yasm
+RUN apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
