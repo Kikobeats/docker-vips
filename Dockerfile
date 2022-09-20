@@ -47,7 +47,7 @@ RUN echo "build libheif" && curl -fsL https://github.com/strukturag/libheif/rele
 
 # building imagemagick
 RUN echo "build imagemagick" && git clone -b "$IM_VERSION" --single-branch --depth 1 https://github.com/ImageMagick/ImageMagick.git && cd ImageMagick && \
-  ./configure --enable-static --disable-docs --disable-dependency-tracking --with-modules && make -j$(nproc) && make install && ldconfig && cd .. && \
+  ./configure --without-magick-plus-plus --disable-static --disable-docs --disable-dependency-tracking --with-modules && make -j$(nproc) && make install && ldconfig && cd .. && \
   rm -rf ImageMagick
 
 # building libvips
