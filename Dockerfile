@@ -59,7 +59,8 @@ RUN echo "build libvips" && curl -fsL https://github.com/libvips/libvips/release
 # Install NodeJS
 RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && \
   apt-get -qq install nodejs && \
-  npm install -g npm@latest
+  npm install -g npm@latest && \
+  corepack enable && corepack prepare pnpm@latest --activate
 
 # cleanup
 RUN apt-get remove --autoremove --purge -y curl gtk-doc-tools libfontconfig1-dev libfreetype6-dev libgif-dev libgirepository1.0-dev libsdl1.2-dev libtiff5-dev libtool libxml2-utils swig yasm
