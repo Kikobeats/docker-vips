@@ -39,13 +39,13 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v3
         with:
-          tags: docker-vips:latest
+          tags: docker-vips:next
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
       - name: Pretest
         uses: addnab/docker-run-action@v3
         with:
-          image: docker-vips:latest
+          image: docker-vips:next
           run: |
             convert --version
             convert -list format
