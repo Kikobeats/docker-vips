@@ -2,15 +2,15 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG IM_VERSION=7.1.0-51
-ARG LIB_HEIF_VERSION=1.13.0
+ARG IM_VERSION=7.1.0-53
+ARG LIB_HEIF_VERSION=1.14.0
 ARG LIB_AOM_VERSION=3.5.0
 ARG LIB_WEBP_VERSION=1.2.4
 ARG LIB_VIPS_VERSION=8.13.2
 
 ENV LANG="C.UTF-8"
-ENV CC=clang
-ENV CXX=clang++
+ENV CC=clang 
+ENV CXX="clang++ -std=gnu++11 -std=gnu++11"
 
 # install dependencies
 RUN apt-get -y update && \
