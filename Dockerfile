@@ -9,8 +9,8 @@ ARG LIB_WEBP_VERSION=1.2.4
 ARG LIB_VIPS_VERSION=8.13.2
 
 ENV LANG="C.UTF-8"
-ENV CC=clang
-ENV CXX=clang++
+ENV CC=clang 
+ENV CXX="clang++ -std=gnu++11 -std=gnu++11"
 
 # install dependencies
 RUN apt-get -y update && \
@@ -47,7 +47,7 @@ RUN echo "build libheif" && curl -fsL https://github.com/strukturag/libheif/rele
 
 # building imagemagick
 RUN echo "build imagemagick" && git clone -b "$IM_VERSION" --single-branch --depth 1 https://github.com/ImageMagick/ImageMagick.git && cd ImageMagick && \
-  ./configure --without-magick-plus-plus --enable-static --disable-docs --disable-dependency-tracking --with-modules && make -j$(nproc) && make install && ldconfig && cd .. && \
+  ./configure --disable-deprecated --enable-osx-universal-binary=no --disable-dependency-tracking --disable-silent-rules --disable-opencl --enable-shared --enable-static --with-freetype=yes --with-gvc=no --with-modules --with-openjp2 --with-openexr --with-webp=yes --with-heic=yes --with-raw=yes --with-gslib --with-lqr --without-fftw --without-pango --without-wmf --enable-openm && make -j$(nproc) && make install && ldconfig && cd .. && \
   rm -rf ImageMagick
 
 # building libvips
