@@ -2,15 +2,15 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG IM_VERSION=7.1.0-56
+ARG IM_VERSION=7.1.0-58
 ARG LIB_HEIF_VERSION=1.14.2
 ARG LIB_AOM_VERSION=3.5.0
-ARG LIB_WEBP_VERSION=1.2.4
-ARG LIB_VIPS_VERSION=8.13.3
+ARG LIB_WEBP_VERSION=1.3.0
+ARG LIB_VIPS_VERSION=8.14.1
 
 ENV LANG="C.UTF-8"
 ENV CC=clang 
-ENV CXX="clang++ -std=gnu++11 -std=gnu++11"
+ENV CXX=clang++
 
 # install dependencies
 RUN apt-get -y update && \
@@ -27,7 +27,8 @@ RUN apt-get -y update && \
   # libvips
   # https://github.com/libvips/libvips/wiki/Build-for-Ubuntu
   automake libgirepository1.0-dev gtk-doc-tools libexpat1-dev libfftw3-dev libglib2.0-dev libgif-dev libgsf-1-dev libmagickwand-dev libmatio-dev libopenexr-dev libopenslide-dev liborc-0.4-dev swig \
-  libexif-dev libtiff5-dev libcfitsio-dev libpoppler-glib-dev librsvg2-dev libpango1.0-dev libffi-dev libopenjp2-7-dev libimagequant-dev
+  libexif-dev libtiff5-dev libcfitsio-dev libpoppler-glib-dev librsvg2-dev libpango1.0-dev libffi-dev libopenjp2-7-dev libimagequant-dev \
+  ninja-build python3-pip bc && pip3 install meson
 
 # building libwebp
 RUN echo "build libwebp" && git clone -b "v$LIB_WEBP_VERSION" --single-branch --depth 1 https://chromium.googlesource.com/webm/libwebp && cd libwebp && \
@@ -51,10 +52,11 @@ RUN echo "build imagemagick" && git clone -b "$IM_VERSION" --single-branch --dep
   rm -rf ImageMagick
 
 # building libvips
-RUN echo "build libvips" && curl -fsL https://github.com/libvips/libvips/releases/download/v${LIB_VIPS_VERSION}/vips-${LIB_VIPS_VERSION}.tar.gz -o libvips.tar.gz && \
-  tar -xzvf libvips.tar.gz && cd vips-${LIB_VIPS_VERSION} && \
-  ./configure && make -j$(nproc) && make install && ldconfig && cd .. && \
-  rm -rf vips-${LIB_VIPS_VERSION} libvips.tar.gz
+RUN echo "build libvips" && curl -fsL https://github.com/libvips/libvips/releases/download/v${LIB_VIPS_VERSION}/vips-${LIB_VIPS_VERSION}.tar.xz -o libvips.tar.xz && \
+  tar -xvf libvips.tar.xz && cd vips-${LIB_VIPS_VERSION} && \
+  meson build --libdir=lib --buildtype=release -Dintrospection=false && \
+  cd build && meson compile && meson test && meson install && cd ../.. && \
+  rm -rf vips-${LIB_VIPS_VERSION} libvips.tar.xz
 
 # Install NodeJS
 RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && \
@@ -62,5 +64,5 @@ RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && 
   npm install -g npm@latest
 
 # cleanup
-RUN apt-get remove --autoremove --purge -y curl gtk-doc-tools libfontconfig1-dev libfreetype6-dev libgif-dev libgirepository1.0-dev libsdl1.2-dev libtiff5-dev libtool libxml2-utils swig yasm
+RUN pip3 uninstall -y meson && apt-get remove --autoremove --purge -y curl gtk-doc-tools libfontconfig1-dev libfreetype6-dev libgif-dev libgirepository1.0-dev libsdl1.2-dev libtiff5-dev libtool libxml2-utils swig yasm ninja-build python3-pip bc
 RUN apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
