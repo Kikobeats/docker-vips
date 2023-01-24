@@ -10,7 +10,8 @@ ARG LIB_VIPS_VERSION=8.14.1
 
 ENV LANG="C.UTF-8"
 ENV CC=clang 
-ENV CXX="clang++ -std=gnu++11"
+ENV CXX=clang++
+ENV CFLAGS="-std=gnu++11"
 
 # install dependencies
 RUN apt-get -y update && \
