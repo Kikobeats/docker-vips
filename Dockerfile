@@ -32,19 +32,25 @@ RUN apt-get -y update && \
 
 # building libwebp
 RUN echo "build libwebp" && git clone -b "v$LIB_WEBP_VERSION" --single-branch --depth 1 https://chromium.googlesource.com/webm/libwebp && cd libwebp && \
-  ./autogen.sh && ./configure --enable-shared --enable-libwebpdecoder --enable-libwebpdemux --enable-libwebpmux --enable-static=no && make -j$(nproc) && make install && ldconfig && cd .. && \
-  rm -rf libwebp
+  cmake -H. -Bbuild -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON && \
+  cmake --build build && \
+  cmake --install build && \
+  ldconfig && cd .. && rm -rf libwebp
 
 # building libaom
-RUN echo "build libaom" &&  git clone -b "v$LIB_AOM_VERSION" --single-branch --depth 1 https://aomedia.googlesource.com/aom && mkdir build_aom && cd build_aom && \
-  cmake ../aom/ -DENABLE_TESTS=0 -DBUILD_SHARED_LIBS=1 && make -j$(nproc) && make install && ldconfig && cd .. && \
-  rm -rf aom build_aom
+RUN echo "build libaom" &&  git clone -b "v$LIB_AOM_VERSION" --single-branch --depth 1 https://aomedia.googlesource.com/aom && cd aom && \
+  cmake -H. -Bbuild -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DENABLE_DOCS=OFF -DENABLE_TESTDATA=OFF -DENABLE_TESTS=OFF -DENABLE_TOOLS=OFF && \
+  cmake --build build && \
+  cmake --install build && \
+  ldconfig && cd .. && rm -rf aom
 
 # building libheif
 RUN echo "build libheif" && curl -fsL https://github.com/strukturag/libheif/releases/download/v${LIB_HEIF_VERSION}/libheif-${LIB_HEIF_VERSION}.tar.gz -o libheif.tar.gz && \
   tar -xzvf libheif.tar.gz && cd libheif-${LIB_HEIF_VERSION} && \
-  ./autogen.sh && ./configure && make -j$(nproc) && make install && ldconfig && cd .. && \
-  rm -rf libheif-${LIB_HEIF_VERSION} libheif.tar.gz
+  cmake -H. -Bbuild -GNinja -DCMAKE_BUILD_TYPE=Release -DWITH_RAV1E=OFF -DWITH_DAV1D=OFF -DWITH_SvtEnc=OFF && \
+  cmake --build build && \
+  cmake --install build && \
+  ldconfig && cd .. && rm -rf libheif-${LIB_HEIF_VERSION} libheif.tar.gz
 
 # building imagemagick
 RUN echo "build imagemagick" && git clone -b "$IM_VERSION" --single-branch --depth 1 https://github.com/ImageMagick/ImageMagick.git && cd ImageMagick && \
