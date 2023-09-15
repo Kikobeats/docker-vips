@@ -73,7 +73,7 @@ RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && 
 RUN apt-get remove --autoremove --purge -y \
 automake bc curl gtk-doc-tools libarchive-dev libcfitsio-dev libcgif-dev libde265-dev libexif-dev libexpat1-dev libffi-dev libfftw3-dev \
 libfontconfig1-dev libfreetype6-dev libgif-dev libgirepository1.0-dev libglib2.0-dev libgsf-1-dev libimagequant-dev libjpeg-turbo8-dev \
-liblcms2-dev libmagickwand-dev libmatio-dev libnifti-dev libopenexr-dev libopenjp2-7-dev libopenslide-dev liborc-0.4-dev libpango1.0-dev \
+libmagickwand-dev libmatio-dev libnifti-dev libopenexr-dev libopenjp2-7-dev libopenslide-dev liborc-0.4-dev libpango1.0-dev \
 libpng-dev libpoppler-glib-dev librsvg2-dev libsdl1.2-dev libtiff-dev libtiff5-dev libtool libx265-dev libxml2-dev libxml2-utils meson ninja-build swig yasm
 
 RUN apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
