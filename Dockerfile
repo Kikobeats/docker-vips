@@ -27,8 +27,8 @@ RUN apt-get -y update && \
   # libvips
   # https://github.com/libvips/libvips/wiki/Build-for-Ubuntu
   automake libgirepository1.0-dev gtk-doc-tools libexpat1-dev libfftw3-dev libglib2.0-dev libgif-dev libgsf-1-dev libmagickwand-dev libmatio-dev libopenexr-dev libopenslide-dev liborc-0.4-dev swig \
-  libexif-dev libtiff5-dev libcfitsio-dev libpoppler-glib-dev librsvg2-dev libpango1.0-dev libffi-dev libopenjp2-7-dev libimagequant-dev \
-  ninja-build python3-pip bc && pip3 install meson
+  libexif-dev libtiff5-dev libcfitsio-dev libpoppler-glib-dev librsvg2-dev libpango1.0-dev libffi-dev libopenjp2-7-dev libimagequant-dev libarchive-dev libcgif-dev libnifti-dev \
+  bc ninja-build meson
 
 # building libwebp
 RUN echo "build libwebp" && git clone -b "v$LIB_WEBP_VERSION" --single-branch --depth 1 https://chromium.googlesource.com/webm/libwebp && cd libwebp && \
@@ -70,5 +70,5 @@ RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && 
   npm install -g npm@latest
 
 # cleanup
-RUN pip3 uninstall -y meson && apt-get remove --autoremove --purge -y gtk-doc-tools libfontconfig1-dev libfreetype6-dev libgif-dev libgirepository1.0-dev libsdl1.2-dev libtiff5-dev libtool libxml2-utils swig yasm ninja-build python3-pip bc
+RUN apt-get remove --autoremove --purge -y bc curl gtk-doc-tools libde265-dev libfontconfig1-dev libfreetype6-dev libgif-dev libgirepository1.0-dev libsdl1.2-dev libtiff5-dev libtool libxml2-utils meson ninja-build swig yasm
 RUN apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
