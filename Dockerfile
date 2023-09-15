@@ -70,5 +70,9 @@ RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && 
   npm install -g npm@latest
 
 # cleanup
-RUN pip3 uninstall -y meson && apt-get remove --autoremove --purge -y gtk-doc-tools libfontconfig1-dev libfreetype6-dev libgif-dev libgirepository1.0-dev libsdl1.2-dev libtiff5-dev libtool libxml2-utils swig yasm bc ninja-build meson
+RUN pip3 uninstall -y meson && apt-get remove --autoremove --purge -y gtk-doc-tools \
+libfontconfig1-dev libfreetype6-dev liblcms2-dev libsdl1.2-dev libtiff-dev libtiff5-dev libtool libxml2-dev libxml2-utils \
+libgirepository1.0-dev gtk-doc-tools libexpat1-dev libfftw3-dev libglib2.0-dev libgif-dev libgsf-1-dev libmagickwand-dev libmatio-dev libopenexr-dev libopenslide-dev liborc-0.4-dev swig \
+swig yasm bc ninja-build meson automake libpng-dev libjpeg-turbo8-dev libde265-dev libx265-dev
+
 RUN apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
