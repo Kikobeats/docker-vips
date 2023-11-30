@@ -2,11 +2,11 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG IM_VERSION=7.1.1-19
-ARG LIB_HEIF_VERSION=1.16.2
-ARG LIB_AOM_VERSION=3.7.0
+ARG IM_VERSION=7.1.1-21
+ARG LIB_HEIF_VERSION=1.17.5
+ARG LIB_AOM_VERSION=3.7.1
 ARG LIB_WEBP_VERSION=1.3.2
-ARG LIB_VIPS_VERSION=8.14.5
+ARG LIB_VIPS_VERSION=8.15.0
 
 ENV LANG="C.UTF-8"
 ENV CC=clang 
@@ -60,7 +60,7 @@ RUN echo "build imagemagick" && git clone -b "$IM_VERSION" --single-branch --dep
 # building libvips
 RUN echo "build libvips" && curl -fsL https://github.com/libvips/libvips/releases/download/v${LIB_VIPS_VERSION}/vips-${LIB_VIPS_VERSION}.tar.xz -o libvips.tar.xz && \
   tar -xvf libvips.tar.xz && cd vips-${LIB_VIPS_VERSION} && \
-  meson build --libdir=lib --buildtype=release -Dintrospection=false && \
+  meson build --libdir=lib --buildtype=release -Dintrospection=disabled && \
   cd build && meson compile && meson test && meson install && cd ../.. && \
   rm -rf vips-${LIB_VIPS_VERSION} libvips.tar.xz
 
