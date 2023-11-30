@@ -60,7 +60,7 @@ RUN echo "build imagemagick" && git clone -b "$IM_VERSION" --single-branch --dep
 # building libvips
 RUN echo "build libvips" && curl -fsL https://github.com/libvips/libvips/releases/download/v${LIB_VIPS_VERSION}/vips-${LIB_VIPS_VERSION}.tar.xz -o libvips.tar.xz && \
   tar -xvf libvips.tar.xz && cd vips-${LIB_VIPS_VERSION} && \
-  meson build --libdir=lib --buildtype=release -Dintrospection=false && \
+  meson build --libdir=lib --buildtype=release -Dintrospection=disabled && \
   cd build && meson compile && meson test && meson install && cd ../.. && \
   rm -rf vips-${LIB_VIPS_VERSION} libvips.tar.xz
 
