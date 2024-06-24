@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 ARG IM_VERSION=7.1.1-29
 ARG LIB_HEIF_VERSION=1.17.6
