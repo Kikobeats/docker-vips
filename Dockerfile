@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:noble
 
 ARG IM_VERSION=7.1.1-39
 ARG LIB_HEIF_VERSION=1.18.2
