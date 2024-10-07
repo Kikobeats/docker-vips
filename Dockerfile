@@ -22,7 +22,7 @@ RUN apt-get -y update && \
   # libwebp
   libsdl1.2-dev libgif-dev \
   # imagemagick
-  fonts-dejavu ghostscript libfontconfig1-dev libfreetype6-dev libgomp1 liblcms2-2 liblcms2-dev libpng-dev libpng16-16 libtiff-dev libxml2-dev libxml2-utils liblqr-1-0 \
+  fonts-dejavu ghostscript libfontconfig1-dev libfreetype6-dev libgomp1 liblcms2-2 liblcms2-dev libpng-dev libpng16-16 libtiff-dev libxml2-dev libxml2-utils liblqr-1-0 libltdl7 \
   # libvips
   # https://github.com/libvips/libvips/wiki/Build-for-Ubuntu
   automake libgirepository1.0-dev gtk-doc-tools libexpat1-dev libfftw3-dev libglib2.0-dev libgif-dev libgsf-1-dev libmagickwand-dev libmatio-dev libopenexr-dev libopenslide-dev liborc-0.4-dev swig \
