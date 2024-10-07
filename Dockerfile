@@ -12,9 +12,7 @@ ENV CC=clang
 ENV CXX=clang++
 
 # install dependencies
-RUN apt-get -y update && 
-  apt-get -y remove libvips42 && 
-  add-apt-repository ppa:lovell/cgif && \
+RUN apt-get -y update && \
   apt-get -y upgrade && \
   apt-get install -y git curl clang \
   # libaom
