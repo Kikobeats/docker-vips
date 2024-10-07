@@ -70,4 +70,4 @@ RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && 
 
 # cleanup
 # RUN apt-get remove --autoremove --purge -y bc gtk-doc-tools libde265-dev libfontconfig1-dev libfreetype6-dev libgif-dev libgirepository1.0-dev libsdl1.2-dev libtiff5-dev libtool libxml2-utils meson ninja-build swig yasm
-# RUN apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
+RUN apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
