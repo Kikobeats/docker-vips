@@ -69,6 +69,6 @@ RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && 
   npm install -g npm@latest
 
 # cleanup
-RUN apt-get remove --autoremove --purge -y autoconf clang cmake
+# RUN apt-get remove --autoremove --purge -y autoconf clang cmake
 # gtk-doc-tools libbrotli-dev libde265-dev libfontconfig1-dev libfreetype6-dev libgif-dev libjpeg-turbo8-dev libpng-dev libsdl1.2-dev libtiff-dev libtiff5-dev libx265-dev libxml2-dev meson ninja-build swig yasm
 RUN apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
