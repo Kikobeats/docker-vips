@@ -25,7 +25,7 @@ RUN apt-get -y update && \
   fonts-dejavu ghostscript libfontconfig1-dev libfreetype6-dev libgomp1 liblcms2-dev libpng-dev libpng16-16 libtiff-dev libxml2-dev libxml2-utils libtcmalloc-minimal4 \
   # libvips
   # https://github.com/libvips/libvips/wiki/Build-for-Ubuntu
-  automake libgirepository1.0-dev gtk-doc-tools libexpat1-dev libfftw3-dev libglib2.0-dev libgif-dev libgsf-1-dev libmagickwand-dev libmatio-dev libopenexr-dev libopenslide-dev liborc-0.4-dev swig \
+  automake libgirepository1.0-dev gtk-doc-tools libexpat1-dev libfftw3-dev libglib2.0-dev libgsf-1-dev libmagickwand-dev libmatio-dev libopenexr-dev libopenslide-dev liborc-0.4-dev swig \
   libexif-dev libtiff5-dev libcfitsio-dev libpoppler-glib-dev librsvg2-dev libpango1.0-dev libffi-dev libopenjp2-7-dev libimagequant-dev libarchive-dev libcgif-dev libnifti-dev \
   bc ninja-build meson
 
@@ -69,5 +69,5 @@ RUN curl --silent --location https://deb.nodesource.com/setup_lts.x | bash - && 
   npm install -g npm@latest
 
 # cleanup
-RUN apt-get remove --autoremove --purge -y bc gtk-doc-tools libde265-dev libfontconfig1-dev libfreetype6-dev libgif-dev libsdl1.2-dev libtiff5-dev libtool libxml2-utils meson ninja-build swig yasm
+RUN apt-get remove --autoremove --purge -y autoconf clang cmake gtk-doc-tools libbrotli-dev libde265-dev libfontconfig1-dev libfreetype6-dev libgif-dev libjpeg-turbo8-dev liblcms2-dev libpng-dev libsdl1.2-dev libtiff-dev libtiff5-dev libx265-dev libxml2-dev meson ninja-build swig yasm
 RUN apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
