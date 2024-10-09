@@ -54,7 +54,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: docker-vips:latest
-          run: git clone --depth 1 https://github.com/microlinkhq/splashy/tree/v5.1.43 && cd splashy && npm i npm ls && npm run test
+          run: git clone https://github.com/microlinkhq/splashy.git && cd splashy && git checkout v5.1.43 && npm i npm ls && npm run test
 
   publish:
     if: ${{ github.ref == 'refs/heads/master' }}
