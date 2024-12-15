@@ -52,9 +52,9 @@ RUN echo "build libheif" && curl -fsL https://github.com/strukturag/libheif/rele
   ldconfig && cd .. && rm -rf libheif-${LIB_HEIF_VERSION} libheif.tar.gz
 
 # building imagemagick
-RUN echo "build imagemagick" && git clone -b "$IM_VERSION" --single-branch --depth 1 https://github.com/ImageMagick/ImageMagick.git && cd ImageMagick && \
-  ./configure --without-magick-plus-plus --enable-static --disable-docs --disable-dependency-tracking --with-modules --with-tcmalloc && make -j$(nproc) && make install && ldconfig && cd .. && \
-  rm -rf ImageMagick
+# RUN echo "build imagemagick" && git clone -b "$IM_VERSION" --single-branch --depth 1 https://github.com/ImageMagick/ImageMagick.git && cd ImageMagick && \
+#   ./configure --without-magick-plus-plus --enable-static --disable-docs --disable-dependency-tracking --with-modules --with-tcmalloc && make -j$(nproc) && make install && ldconfig && cd .. && \
+#   rm -rf ImageMagick
 
 # building libvips
 RUN echo "build libvips" && curl -fsL https://github.com/libvips/libvips/releases/download/v${LIB_VIPS_VERSION}/vips-${LIB_VIPS_VERSION}.tar.xz -o libvips.tar.xz && \
