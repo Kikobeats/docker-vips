@@ -1,12 +1,15 @@
-name: publish-next
-
+name: Publishing Docker Image
 on:
   workflow_dispatch:
     inputs:
-      commit_hash:
-        description: 'Commit hash to publish as next (leave empty to use latest master)'
-        required: false
-        type: string
+      version:
+        description: 'Version to publish'
+        required: true
+        type: choice
+        options:
+          - next
+          - latest
+        default: next
 
 jobs:
   publish:
@@ -27,9 +30,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: kikobeats/docker-vips:next
+          tags: kikobeats/docker-vips:${{ github.event.inputs.version }}
       - name: Output published info
         run: |
-          echo "Successfully published kikobeats/docker-vips:next"
+          echo "Successfully published kikobeats/docker-vips:${{ github.event.inputs.version }}"
           echo "Commit: ${{ github.event.inputs.commit_hash || 'latest from master' }}"
           echo "Triggered by: ${{ github.actor }}" 
